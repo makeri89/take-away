@@ -9,11 +9,19 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     padding: 10,
-    borderRadius: 10
+    margin: 10,
+    borderRadius: 10,
+    shadowColor: '#555555',
+    shadowOpacity: 0.8,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 5
+    }
   },
   image: {
     width: width - 50,
-    height: 120,
+    height: 140,
     borderRadius: 10,
     marginBottom: 5
   }

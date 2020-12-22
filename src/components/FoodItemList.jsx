@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 
 import FoodItem from './FoodItem';
 import ItemSeparator from './UIcomponents/ItemSeparator';
+import Text from './UIcomponents/Text';
 
 import { mockdata } from '../../mockData';
 const data = mockdata;
@@ -12,6 +13,14 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     paddingTop: Constants.statusBarHeight,
+    marginBottom: 10
+  },
+  header: {
+    textAlign: 'center',
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: '#f2f0e1',
+    marginTop: -10
   }
 });
 
@@ -20,6 +29,18 @@ const FoodItemList = () => {
     <FoodItem item={item} />
   );
 
+  const Header = () => {
+    return (
+      <Text 
+        fontSize='header' 
+        fontWeight='bold' 
+        style={styles.header}
+      >
+        Order take away
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -27,6 +48,8 @@ const FoodItemList = () => {
         renderItem={renderItem}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={ItemSeparator}
+        ListHeaderComponent={Header}
+        stickyHeaderIndices={[0]}
       />
     </View>
   );
