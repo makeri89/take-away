@@ -15,3 +15,4 @@ web-build/
 workinglog.csv
 hourcalculator.py
 server/node_modules
+server/.env
