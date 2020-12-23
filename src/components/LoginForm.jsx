@@ -18,7 +18,14 @@ const styles = StyleSheet.create({
     margin: 30,
     borderRadius: 10,
     position: 'relative',
-    top: 250
+    top: 250,
+    shadowColor: '#555555',
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowRadius: 5
   },
   actionButton: {
     margin: 10,

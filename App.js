@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import FoodItemList from './src/components/FoodItemList';
 import LoginForm from './src/components/LoginForm';
+import TabBar from './src/components/TabBar';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,34 +25,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor: '#24b719',
-          inactiveTintColor: '#808080',
-          tabStyle: styles.tab,
-          style: {
-            backgroundColor: '#f2f0f8'
-          },
-          labelStyle: {
-            fontWeight: '600'
-          }
-        }}
         sceneContainerStyle={styles.container}
-        screenOptions={({ route }) => ({
-          tapBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'home') {
-              iconName = focused
-               ? 'pizza' : 'pizza-outline';
-            } else if (route.name === 'login') {
-              iconName = focused
-                ? 'login' : 'login-outline';
-            }
-
-            return <Ionicons name={iconName} size={20} color='black' />;
-          },
-          // labelPosition: 'below-icon'
-        })}
+        tabBar={props => <TabBar {...props} />}
       >
         <Tab.Screen 
           name='home' 
