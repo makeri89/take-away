@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 
-import Text from './UIcomponents/Text';
+import Text from '../UIcomponents/Text';
 
 const width = Dimensions.get('window').width;
 

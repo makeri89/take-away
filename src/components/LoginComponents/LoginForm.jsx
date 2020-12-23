@@ -3,9 +3,9 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import Text from './UIcomponents/Text';
-import FormikTextInput from './UIcomponents/FormikTextInput';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Text from '../UIcomponents/Text';
+import FormikTextInput from '../UIcomponents/FormikTextInput';
+import Button from '../UIcomponents/Button';
 
 const initialValues = {
   username: '',
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 30,
     borderRadius: 10,
-    position: 'relative',
-    top: 250,
+    // position: 'relative',
+    // top: 250,
     shadowColor: '#555555',
     shadowOpacity: 0.8,
     shadowOffset: {
@@ -27,16 +27,12 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 5
   },
-  actionButton: {
-    margin: 10,
-    padding: 10,
-    borderRadius: 5,
-    textAlign: 'center',
-    overflow: 'hidden'
-  },
   header: {
     textAlign: 'center',
     paddingVertical: 20
+  },
+  signUpButton: {
+    // backgroundColor: '#555555'
   }
 });
 
@@ -57,9 +53,7 @@ const Form = ({ onSubmit }) => {
       <Text fontSize='header' fontWeight='bold' style={styles.header}>Log in here</Text>
       <FormikTextInput name='username' placeholder='Username' />
       <FormikTextInput name='password' placeholder='Password' secureTextEntry />
-      <TouchableOpacity onPress={onSubmit}>
-        <Text style={styles.actionButton}>Log in</Text>
-      </TouchableOpacity>
+      <Button text='Login' onPress={onSubmit} />
     </View>
   );
 };

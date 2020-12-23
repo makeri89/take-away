@@ -3,17 +3,16 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import Constants from 'expo-constants';
 
 import FoodItem from './FoodItem';
-import ItemSeparator from './UIcomponents/ItemSeparator';
-import Text from './UIcomponents/Text';
+import ItemSeparator from '../UIcomponents/ItemSeparator';
+import Text from '../UIcomponents/Text';
 
-import { mockdata } from '../../mockData';
+import { mockdata } from '../../../mockData';
 const data = mockdata;
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingTop: Constants.statusBarHeight,
-    marginBottom: 10
+    paddingTop: Constants.statusBarHeight
   },
   header: {
     textAlign: 'center',

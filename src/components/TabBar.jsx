@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 30,
     borderTopColor: '#cecece',
-    borderTopWidth: 1
+    borderTopWidth: 1,
+    backgroundColor: '#f2f2f2'
   },
   tab: {
     flex: 1,
@@ -78,6 +79,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.tab}
+            key={index}
           >
             <Ionicons name={iconName} size={18} color={tabColor} />
             <Text style={{ color: tabColor, fontSize: 12 }}>
