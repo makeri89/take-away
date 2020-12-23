@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const LoginPage = () => {
+const LoginPage = ({ navigation }) => {
   const [hasUserSignedUp, setHasUserSignedUp] = useState(true);
 
   const actionText = hasUserSignedUp ? 'Sign up' : 'Login';
@@ -34,7 +34,7 @@ const LoginPage = () => {
   return (
     <View style={styles.container}>
       {hasUserSignedUp
-        ? <LoginForm />
+        ? <LoginForm navigation={navigation} />
         : <SignUpForm />
       }
       <Button 

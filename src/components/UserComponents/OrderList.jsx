@@ -10,8 +10,11 @@ const data = mockorders;
 const styles = StyleSheet.create({
   header: {
     marginLeft: 30,
-    marginBottom: -20,
+    // marginBottom: -20,
     marginTop: 30
+  },
+  list: {
+    paddingBottom: 10
   }
 });
 
@@ -27,6 +30,7 @@ const OrderList = () => {
         data={data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        style={styles.list}
       />
     </View>
   );

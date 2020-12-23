@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend for takeaway app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Markus Kaihola",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.19.1",
+    "graphql": "^15.4.0"
+  }
+}

@@ -6,7 +6,8 @@ import Text from '../UIcomponents/Text';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    margin: 30,
+    marginHorizontal: 30,
+    marginVertical: 10,
     padding: 10,
     borderRadius: 10,
     shadowColor: '#555555',
