@@ -48,6 +48,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
         } else if (route.name === 'login') {
           iconName = isFocused
             ? 'log-in' : 'log-in-outline';
+        } else if (route.name === 'profile') {
+          iconName = isFocused
+            ? 'person' : 'person-outline';
         }
 
         let tabColor = isFocused ? '#24b719' : '#555555';
