@@ -7,6 +7,7 @@ const mutation = gql`
       description: String!,
       url: String!,
       price: Int!
+      category: String
     ): Product
     createNewOrder(
       customer: String!

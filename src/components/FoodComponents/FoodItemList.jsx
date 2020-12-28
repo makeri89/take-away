@@ -32,8 +32,6 @@ const FoodItemList = () => {
     fetchPolicy: 'cache-and-network'
   });
 
-  // console.log(products.data);
-
   if (products.loading) {
     return (
       <View>
@@ -42,10 +40,7 @@ const FoodItemList = () => {
     );
   }
 
-  // console.log(products.data)
-
   const data = products.data.allProducts;
-  // console.log(data);
 
   const renderItem = ({ item }) => (
     <FoodItem item={item} />

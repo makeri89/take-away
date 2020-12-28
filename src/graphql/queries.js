@@ -4,7 +4,9 @@ import { PRODUCT_INFO } from './fragments';
 
 export const ALL_PRODUCTS = gql`
   query allProducts {
-    ...ProductInfo
+    allProducts {
+      ...ProductInfo
+    }
   }
   ${PRODUCT_INFO}
 `;

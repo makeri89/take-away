@@ -3,8 +3,13 @@ const { gql } = require('apollo-server')
 const query = gql`
   type Query {
     allUsers: [User]!
-    allProducts: [Product]!
-    allOrders(customer: String): [Order]!
+    allProducts(
+      priceLimit: Int
+      category: String
+    ): [Product]!
+    allOrders(
+      customer: String
+    ): [Order]!
   }
 `
 

@@ -7,6 +7,7 @@ const productType = gql`
     description: String!
     url: String!
     price: Int!
+    category: String
   }
 `
 

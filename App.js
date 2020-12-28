@@ -10,26 +10,26 @@ import TabBar from './src/components/TabBar';
 import LoginPage from './src/components/LoginComponents/LoginPage';
 import ProfilePage from './src/components/UserComponents/ProfilePage';
 
-// import { ApolloProvider } from '@apollo/react-hooks';
-// import createApolloClient from './src/utils/apolloClient';
+import { ApolloProvider } from '@apollo/react-hooks';
+import createApolloClient from './src/utils/apolloClient';
 
-// const apolloClient = createApolloClient();
+const apolloClient = createApolloClient();
 
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+// import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 
-const client = new ApolloClient({
-  uri: 'http://192.168.100.40:4000/graphql',
-  cache: new InMemoryCache()
-});
+// const client = new ApolloClient({
+//   uri: 'http://192.168.100.40:4000/graphql',
+//   cache: new InMemoryCache()
+// });
 
-client.query({
-  query: gql`
-    query allProducts {
-      name
-      price
-    }
-  `
-}).then(result => console.log(result));
+// client.query({
+//   query: gql`
+//     query allProducts {
+//       name
+//       price
+//     }
+//   `
+// }).then(result => console.log(result));
 
 const Tab = createBottomTabNavigator();
 
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
 
 const App = () => {
 
-  const [user, setUser] = useState(false);
+  // const [user, setUser] = useState(false);
 
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <NavigationContainer>
         <Tab.Navigator
           sceneContainerStyle={styles.container}
