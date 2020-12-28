@@ -6,8 +6,11 @@ import FoodItem from './FoodItem';
 import ItemSeparator from '../UIcomponents/ItemSeparator';
 import Text from '../UIcomponents/Text';
 
-import { mockdata } from '../../../mockData';
-const data = mockdata;
+// import { mockdata } from '../../../mockData';
+// const data = mockdata;
+
+import { useQuery } from '@apollo/client';
+import { ALL_PRODUCTS } from '../../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +27,26 @@ const styles = StyleSheet.create({
 });
 
 const FoodItemList = () => {
+
+  const products = useQuery(ALL_PRODUCTS, {
+    fetchPolicy: 'cache-and-network'
+  });
+
+  // console.log(products.data);
+
+  if (products.loading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  // console.log(products.data)
+
+  const data = products.data.allProducts;
+  // console.log(data);
+
   const renderItem = ({ item }) => (
     <FoodItem item={item} />
   );
