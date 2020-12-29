@@ -1,7 +1,10 @@
-import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Image, StyleSheet, Dimensions, Button } from 'react-native';
+import NumericInput from 'react-native-numeric-input';
 
 import Text from '../UIcomponents/Text';
+
+import ShoppingCartStorageContext from '../../contexts/ShoppingCartStorageContext';
 
 const width = Dimensions.get('window').width;
 
@@ -27,7 +30,15 @@ const styles = StyleSheet.create({
   }
 });
 
-const FoodItem = ({ item }) => {
+const FoodItem = ({ item, setForcer }) => {
+  const [amount, setAmount] = useState(0);
+  const shoppingCartStorage = useContext(ShoppingCartStorageContext);
+
+  const addToCart = async (name) => {
+    await shoppingCartStorage.addProduct(name, amount);
+    setForcer(Math.random());
+    setAmount(0);
+  };
   return (
     <View style={styles.container}>
       <Image
@@ -39,6 +50,12 @@ const FoodItem = ({ item }) => {
       <Text fontSize='header'>{item.name}</Text>
       <Text color='textSecondary'>{item.description}</Text>
       <Text>{item.price} €</Text>
+      <NumericInput 
+        value={amount} 
+        onChange={value => setAmount(value)} 
+        rounded
+      />
+      <Button onPress={() => addToCart(item.name)} title='Add to cart' />
     </View>
   );
 };

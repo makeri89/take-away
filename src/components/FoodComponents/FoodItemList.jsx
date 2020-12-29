@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const FoodItemList = () => {
+const FoodItemList = ({ setForcer }) => {
 
   const products = useQuery(ALL_PRODUCTS, {
     fetchPolicy: 'cache-and-network'
@@ -43,7 +43,7 @@ const FoodItemList = () => {
   const data = products.data.allProducts;
 
   const renderItem = ({ item }) => (
-    <FoodItem item={item} />
+    <FoodItem item={item} setForcer={setForcer} />
   );
 
   const Header = () => {

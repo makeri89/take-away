@@ -48,6 +48,9 @@ const TabBar = ({ state, descriptors, navigation }) => {
         } else if (route.name === 'you') {
           iconName = isFocused
             ? 'person' : 'person-outline';
+        } else if (route.name === 'cart') {
+          iconName = isFocused
+            ? 'cart' : 'cart-outline';
         }
 
         let tabColor = isFocused ? '#24b719' : '#555555';
