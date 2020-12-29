@@ -46,6 +46,9 @@ const resolvers = {
         return orders
       }
       return Order.find({}).populate('products').populate('customer')
+    },
+    me: (root, args, context) => {
+      return context.currentUser
     }
   },
   Mutation: {

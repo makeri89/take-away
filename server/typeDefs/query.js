@@ -10,6 +10,7 @@ const query = gql`
     allOrders(
       customer: String
     ): [Order]!
+    me: User
   }
 `
 

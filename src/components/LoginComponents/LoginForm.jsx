@@ -7,6 +7,8 @@ import Text from '../UIcomponents/Text';
 import FormikTextInput from '../UIcomponents/FormikTextInput';
 import Button from '../UIcomponents/Button';
 
+import useLogin from '../../hooks/useLogin';
+
 const initialValues = {
   username: '',
   password: ''
@@ -58,11 +60,21 @@ const Form = ({ onSubmit }) => {
   );
 };
 
-const LoginForm = ({ navigation }) => {
-  const onSubmit = (values) => {
-    console.log(values);
-    Alert.alert('Logged in');
-    navigation.navigate('home');
+const LoginForm = ({ navigation, setIsLoggedIn }) => {
+  const [login] = useLogin();
+
+  const onSubmit = async (values) => {
+    // console.log('values', values);
+    const { username, password } = values;
+    // console.log(username);
+    try {
+      await login({ username, password});
+      setIsLoggedIn(true);
+      navigation.navigate('home');
+    } catch (e) {
+      console.log(e);
+    }
+    
   };
 
   return (

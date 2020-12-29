@@ -9,3 +9,12 @@ export const PRODUCT_INFO = gql`
     price
   }
 `;
+
+export const USER_INFO = gql`
+  fragment UserInfo on User {
+    id
+    name
+    username
+    email
+  }
+`;

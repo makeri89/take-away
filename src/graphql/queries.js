@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-import { PRODUCT_INFO } from './fragments';
+import { PRODUCT_INFO, USER_INFO } from './fragments';
 
 export const ALL_PRODUCTS = gql`
   query allProducts {
@@ -19,7 +19,7 @@ export const ALL_ORDERS = gql`
       customer: $customer
     ) {
       customer {
-        name
+        ...UserInfo
       }
       products {
         ...ProductInfo
@@ -27,5 +27,15 @@ export const ALL_ORDERS = gql`
       date
     }
   }
+  ${USER_INFO}
   ${PRODUCT_INFO}
+`;
+
+export const ME = gql`
+  query {
+    me {
+      ...UserInfo
+    }
+  }
+  ${USER_INFO}
 `;

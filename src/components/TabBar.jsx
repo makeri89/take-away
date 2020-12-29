@@ -45,10 +45,7 @@ const TabBar = ({ state, descriptors, navigation }) => {
         if (route.name === 'home') {
           iconName = isFocused
             ? 'pizza' : 'pizza-outline';
-        } else if (route.name === 'login') {
-          iconName = isFocused
-            ? 'log-in' : 'log-in-outline';
-        } else if (route.name === 'profile') {
+        } else if (route.name === 'you') {
           iconName = isFocused
             ? 'person' : 'person-outline';
         }
