@@ -39,16 +39,20 @@ const resolvers = {
     },
     allOrders: async (root, args) => {
       if (args.customer) {
-        const customer = User.find({ username: args.customer })
+        const customer = await User.findOne({ username: args.customer })
         const orders = await Order.find({
-          customer: { $in: customer.id }
-        })
+          customer: { $in: customer._id }
+        }).populate('products').populate('customer')
+        console.log(orders)
         return orders
       }
       return Order.find({}).populate('products').populate('customer')
     },
     me: (root, args, context) => {
       return context.currentUser
+    },
+    singleProduct: (root, args) => {
+      return Product.findOne({ name: args.name })
     }
   },
   Mutation: {
@@ -95,7 +99,7 @@ const resolvers = {
       const customer = await User.findOne({ username: args.customer })
 
       const products = await Product.find({
-        name: { $in: args.products }
+        name: { $in: args.products.product }
       })
 
       let date = moment().format('YYYY-MM-DD')

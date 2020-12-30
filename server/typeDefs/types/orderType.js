@@ -3,7 +3,7 @@ const { gql } = require('apollo-server')
 const orderType = gql`
   type Order {
     id: ID!
-    products: [Product]!
+    products: [OrderProduct]!
     customer: User!
     date: String!
   }

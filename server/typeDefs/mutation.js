@@ -11,7 +11,7 @@ const mutation = gql`
     ): Product
     createNewOrder(
       customer: String!
-      products: [String]!
+      products: [String]! # TODO custom scalar type here
       date: String!
     ): Order
     createNewUser(

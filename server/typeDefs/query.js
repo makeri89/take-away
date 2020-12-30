@@ -7,6 +7,9 @@ const query = gql`
       priceLimit: Int
       category: String
     ): [Product]!
+    singleProduct(
+      name: String!
+    ): Product
     allOrders(
       customer: String
     ): [Order]!

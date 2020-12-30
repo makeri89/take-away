@@ -18,6 +18,8 @@ import AuthStorageContext from './src/contexts/AuthStorageContext';
 import ShoppingCartStorage from './src/utils/shoppingCartStorage';
 import ShoppingCartStorageContext from './src/contexts/ShoppingCartStorageContext';
 
+import theme from './src/theme/';
+
 const authStorage = new AuthStorage();
 const shoppingCartStorage = new ShoppingCartStorage();
 const apolloClient = createApolloClient(authStorage);
@@ -26,7 +28,7 @@ const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f2f0e1',
+    backgroundColor: theme.colors.appBackground,
   },
   tab: {
     justifyContent: 'center',
@@ -59,7 +61,7 @@ const App = () => {
               />
               <Tab.Screen
                 name='cart'
-                children={() => <ShoppingCart test={forcer} setForcer={setForcer} />}
+                children={() => <ShoppingCart forcer={forcer} setForcer={setForcer} />}
                 options={{
                   title: 'Cart',
                   tapBarLabel: 'Cart',

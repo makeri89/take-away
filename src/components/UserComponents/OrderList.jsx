@@ -5,6 +5,8 @@ import SingleOrder from './SingleOrder';
 import Text from '../UIcomponents/Text';
 
 import { mockorders } from '../../../mockData';
+import { useQuery } from '@apollo/react-hooks';
+import { ALL_ORDERS, ME } from '../../graphql/queries';
 const data = mockorders;
 
 const styles = StyleSheet.create({
@@ -18,7 +20,20 @@ const styles = StyleSheet.create({
   }
 });
 
-const OrderList = () => {
+const OrderList = ({ customer }) => {
+  
+  const orders = useQuery(ALL_ORDERS, {
+    variables: { customer: customer }
+  });
+
+  if (orders.loading) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   const renderItem = ({ item }) => (
     <SingleOrder order={item} />
   );
@@ -27,7 +42,7 @@ const OrderList = () => {
     <View>
       <Text fontSize='subheading' style={styles.header}>Your orders</Text>
       <FlatList
-        data={data}
+        data={orders.data.allOrders}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         style={styles.list}

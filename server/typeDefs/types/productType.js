@@ -11,6 +11,14 @@ const productType = gql`
   }
 `
 
+const orderProductType = gql`
+  type OrderProduct {
+    product: Product!
+    amount: Int!
+  }
+`
+
 module.exports = {
-  productType
+  productType,
+  orderProductType
 }

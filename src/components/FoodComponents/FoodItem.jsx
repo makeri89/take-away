@@ -1,20 +1,23 @@
 import React, { useContext, useState } from 'react';
-import { View, Image, StyleSheet, Dimensions, Button } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 
 import Text from '../UIcomponents/Text';
+import Button from '../UIcomponents/Button';
 
 import ShoppingCartStorageContext from '../../contexts/ShoppingCartStorageContext';
+
+import theme from '../../theme';
 
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     padding: 10,
     margin: 10,
     borderRadius: 10,
-    shadowColor: '#555555',
+    shadowColor: theme.colors.shadow,
     shadowOpacity: 0.8,
     shadowRadius: 5,
     shadowOffset: {
@@ -27,6 +30,13 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 10,
     marginBottom: 5
+  },
+  info: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  button: {
+    marginBottom: -10
   }
 });
 
@@ -47,15 +57,28 @@ const FoodItem = ({ item, setForcer }) => {
           uri: item.url
         }}
       />
-      <Text fontSize='header'>{item.name}</Text>
-      <Text color='textSecondary'>{item.description}</Text>
-      <Text>{item.price} €</Text>
-      <NumericInput 
-        value={amount} 
-        onChange={value => setAmount(value)} 
-        rounded
-      />
-      <Button onPress={() => addToCart(item.name)} title='Add to cart' />
+      <View style={styles.info}>
+        <View>
+          <Text fontSize='header'>{item.name}</Text>
+          <Text color='textSecondary'>{item.description}</Text>
+          <Text>{item.price} €</Text>
+        </View>
+        <View>
+          <NumericInput 
+            value={amount} 
+            onChange={value => setAmount(value)} 
+            rounded
+            totalWidth={110}
+            totalHeight={45}
+            minValue={0}
+          />
+          <Button 
+            onPress={() => addToCart(item.name)} 
+            text='Add to cart' 
+            style={styles.button}
+          />
+        </View>
+      </View>
     </View>
   );
 };

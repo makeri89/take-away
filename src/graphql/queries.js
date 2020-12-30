@@ -39,3 +39,16 @@ export const ME = gql`
   }
   ${USER_INFO}
 `;
+
+export const SINGLE_PRODUCT = gql`
+  query singleProduct(
+    $name: String!
+  ) {
+    singleProduct(
+      name: $name
+    ) {
+      ...ProductInfo
+    }
+  }
+  ${PRODUCT_INFO}
+`;

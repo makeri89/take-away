@@ -1,58 +1,62 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Button, FlatList } from 'react-native';
+import React, { useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 import ShoppingCartStorageContext from '../contexts/ShoppingCartStorageContext';
 import Text from './UIcomponents/Text';
-import ShoppingCartItem from './ShoppingCartItem';
+import Button from './UIcomponents/Button';
+import ShoppingCartContent from './ShoppingCartContent';
+
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    alignItems: 'center'
+    flex: 1
   },
   header: {
-    marginBottom: 10
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  button: {
+    marginHorizontal: 80,
+  },
+  buttonToBottom: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%'
   }
 });
 
-const ShoppingCart = ({ navigation, test, setForcer }) => {
+const ShoppingCart = ({ navigation, forcer, setForcer }) => {
   const shoppingCartStorage = useContext(ShoppingCartStorageContext);
-  const [productList, setProductList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await shoppingCartStorage.getProducts()
-        .then(products => setProductList(products));
-      return data;
-    };
-    fetchData();
-  },[navigation, test]);
 
   const clearCart  = async () => {
     await shoppingCartStorage.clearProducts();
     setForcer(Math.random());
   };
 
-  const renderItem = ({ item }) => (
-    <ShoppingCartItem item={item} />
-  );
-
-  console.log(productList);
-
-  const productArray = Object.entries(productList);
-
-  console.log(productArray);
-
   return (
     <View style={styles.container}>
-      <Text fontSize='header' style={styles.header}>Hello shopping cart</Text>
-      <FlatList
-        data={productArray}
-        renderItem={renderItem}
-        keyExtractor={item => item[0]}
+      <Text 
+        fontSize='header' 
+        fontWeight='bold'
+        style={styles.header}
+      >
+        Your current order
+      </Text>
+      <ShoppingCartContent 
+        navigation={navigation} 
+        forcer={forcer} 
       />
-      <Button onPress={clearCart} title='Empty cart' />
+      <View style={styles.buttonToBottom}>
+        <Button 
+          onPress={clearCart} 
+          text='Remove all' 
+          style={styles.button} 
+          color={theme.colors.error}
+        />
+      </View>
     </View>
   );
 };

@@ -39,7 +39,7 @@ const ProfilePage = ({ setIsLoggedIn }) => {
     <View style={styles.container}>
       <Text fontSize='header' style={styles.header}>Your profile</Text>
       <Text fontSize='subheading' style={styles.welcomeText}>{`Welcome ${data?.me.name}`}</Text>
-      <OrderList />
+      <OrderList customer={data?.me.username}/>
       <Button onPress={logOut} title='Log out' />
     </View>
   );
