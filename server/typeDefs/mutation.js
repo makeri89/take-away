@@ -12,7 +12,6 @@ const mutation = gql`
     createNewOrder(
       customer: String!
       products: [String]!
-      date: String!
     ): Order
     createNewUser(
       name: String!

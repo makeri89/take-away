@@ -10,11 +10,12 @@ import { ALL_ORDERS } from '../../graphql/queries';
 const styles = StyleSheet.create({
   header: {
     marginLeft: 30,
-    // marginBottom: -20,
-    marginTop: 30
+    marginTop: 30,
+    paddingBottom: 10
   },
   list: {
-    paddingBottom: 10
+    paddingBottom: 10,
+    height: 500
   }
 });
 
