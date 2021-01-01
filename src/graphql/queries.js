@@ -18,17 +18,24 @@ export const ALL_ORDERS = gql`
     allOrders(
       customer: $customer
     ) {
+      id
       customer {
         ...UserInfo
       }
       products {
-        ...ProductInfo
+        id
+        name
+        price
+        description
+        url
+        amount
       }
       date
+      subTotal
+      
     }
   }
   ${USER_INFO}
-  ${PRODUCT_INFO}
 `;
 
 export const ME = gql`

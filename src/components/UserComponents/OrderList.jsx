@@ -4,10 +4,8 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import SingleOrder from './SingleOrder';
 import Text from '../UIcomponents/Text';
 
-import { mockorders } from '../../../mockData';
 import { useQuery } from '@apollo/react-hooks';
-import { ALL_ORDERS, ME } from '../../graphql/queries';
-const data = mockorders;
+import { ALL_ORDERS } from '../../graphql/queries';
 
 const styles = StyleSheet.create({
   header: {
@@ -42,7 +40,7 @@ const OrderList = ({ customer }) => {
     <View>
       <Text fontSize='subheading' style={styles.header}>Your orders</Text>
       <FlatList
-        data={orders.data.allOrders}
+        data={orders.data?.allOrders}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         style={styles.list}

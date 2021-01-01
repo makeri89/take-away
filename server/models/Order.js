@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
   date: {
-    type: 'string',
+    type: String,
     required: true
   },
   customer: {
@@ -12,9 +12,18 @@ const schema = new mongoose.Schema({
   products: [
     { 
       type: mongoose.Schema.Types.ObjectId, 
-      ref: 'Product'
+      ref: 'OrderProduct'
     }
-  ]
+  ],
+  totalProducts: {
+    type: Number
+  },
+  totalUniqueProducts: {
+    type: Number
+  },
+  subTotal: {
+    type: Number
+  }
 })
 
 module.exports = mongoose.model('Order', schema)

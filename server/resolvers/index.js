@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const Product = require('../models/Product')
 const Order = require('../models/Order')
+const OrderProduct = require('../models/OrderProduct')
 const { UserInputError, AuthenticationError } = require('apollo-server')
 const moment = require('moment')
 const bcrypt = require('bcrypt')
@@ -98,16 +99,53 @@ const resolvers = {
       }
       const customer = await User.findOne({ username: args.customer })
 
+      const splitProducts = args.products.map(product => product.split(';'))
+      let productsInDict = {}
+      splitProducts.map(p => productsInDict[p[0]] = p[1])
+
       const products = await Product.find({
-        name: { $in: args.products.product }
+        name: { $in: Object.keys(productsInDict) }
       })
+
+      let orderProducts = [];
+
+      products.map(product => {
+        const prod = new OrderProduct({
+          name: product.name,
+          description: product.description,
+          url: product.url,
+          price: product.price,
+          amount: productsInDict[product.name]
+        })
+        try {
+          prod.save()
+          orderProducts.push(prod)
+          console.log(orderProducts)
+        } catch (err) {
+          throw new UserInputError(err.message, {
+            invalidArgs: args
+          })
+        }
+      })
+
+      console.log(orderProducts)
+
+      const prices = orderProducts.map(product => product.price * product.amount)
+      const reducer = (acc, curr) => acc + curr
+      const totalSum = prices.reduce(reducer)
+
+      let totalAmount = 0
+      orderProducts.map(p => totalAmount += p.amount)
 
       let date = moment().format('YYYY-MM-DD')
 
       const order = new Order({
         customer: customer._id,
-        products: products.map(p => p.id),
+        products: orderProducts.map(p => p.id),
         date: date,
+        subTotal: totalSum,
+        totalUniqueProducts: orderProducts.length,
+        totalProducts: totalAmount
       })
 
       try {
