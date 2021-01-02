@@ -39,8 +39,8 @@ const UserPage = ({ navigation }) => {
     const fetchData = async () => {
       const fetchedToken = await fetchToken()
         .then(token => token === null
-          ? setIsLoggedIn(true)
-          : setIsLoggedIn(false)  
+          ? setIsLoggedIn(false)
+          : setIsLoggedIn(true)  
         );
       return fetchedToken;
     };

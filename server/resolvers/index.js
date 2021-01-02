@@ -93,11 +93,11 @@ const resolvers = {
       return product
     },
     createNewOrder: async (root, args, context) => {
-      const currentUser = context.currentUser
-      if (!currentUser) {
+      const customer = context.currentUser
+      if (!customer) {
         throw new AuthenticationError('Please sign in before ordering')
       }
-      const customer = await User.findOne({ username: args.customer })
+      console.log('new order', args.customer)
 
       const splitProducts = args.products.map(product => product.split(';'))
       let productsInDict = {}

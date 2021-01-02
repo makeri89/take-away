@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
 import Constants from 'expo-constants';
 
 import ShoppingCartStorageContext from '../contexts/ShoppingCartStorageContext';
 import Text from './UIcomponents/Text';
 import Button from './UIcomponents/Button';
 import ShoppingCartContent from './ShoppingCartContent';
+import Error from './UIcomponents/Error';
 
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { ME } from '../graphql/queries';
@@ -39,6 +40,7 @@ const ShoppingCart = ({ navigation, forcer, setForcer }) => {
   const shoppingCartStorage = useContext(ShoppingCartStorageContext);
   const [newOrder] = useNewOrder();
   const user = useQuery(ME);
+  const [error, setError] = useState(false);
 
   if (user.loading) {
     return (
@@ -48,7 +50,7 @@ const ShoppingCart = ({ navigation, forcer, setForcer }) => {
     );
   }
 
-  console.log(user.data);
+  console.log('user', user.data);
 
   const clearCart  = async () => {
     await shoppingCartStorage.clearProducts();
@@ -61,20 +63,41 @@ const ShoppingCart = ({ navigation, forcer, setForcer }) => {
     for (const [k,v] of Object.entries(products)) {
       formattedProducts.push(`${k};${v}`);
     }
-    console.log(formattedProducts);
 
-    try {
-      const { data } = await newOrder({
-        products: formattedProducts,
-        customer: user.data.me.username
-      });
-      await shoppingCartStorage.clearProducts();
-      apolloClient.resetStore();
-      console.log(data);
-      setForcer(Math.random());
-    } catch (err) {
-      console.error(err);
-    }
+    Alert.alert(
+      'Submit new order',
+      'Submit new order',
+      [
+        {
+          text: 'Submit',
+          onPress: async () => {
+            try {
+              const { data } = await newOrder({
+                products: formattedProducts,
+                customer: user.data?.me?.username || ''
+              });
+              await shoppingCartStorage.clearProducts();
+              apolloClient.resetStore();
+              console.log(data);
+              setForcer(Math.random());
+            } catch (err) {
+              setError(true);
+              setTimeout(() => {
+                setError(false);
+              }, 5000);
+            }
+          }
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Canceled'),
+          style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    );
+
+    
   };
 
   return (
@@ -86,6 +109,9 @@ const ShoppingCart = ({ navigation, forcer, setForcer }) => {
       >
         Your current order
       </Text>
+      {error &&
+        <Error message='Something went wrong. Are you sure you are logged in?' />
+      }
       <ShoppingCartContent 
         navigation={navigation} 
         forcer={forcer} 
