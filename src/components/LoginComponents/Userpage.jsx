@@ -63,7 +63,7 @@ const UserPage = ({ navigation }) => {
         <View style={styles.container}>
           {hasUserSignedUp
             ? <LoginForm navigation={navigation} setIsLoggedIn={setIsLoggedIn} />
-            : <SignUpForm />
+            : <SignUpForm navigation={navigation} setIsLoggedIn={setIsLoggedIn} />
           }
           <Button 
             text={actionText} 

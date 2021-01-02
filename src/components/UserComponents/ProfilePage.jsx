@@ -1,13 +1,16 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 import OrderList from './OrderList';
 import Text from '../UIcomponents/Text';
+import Button from '../UIcomponents/Button';
 
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import AuthStorageContext from '../../contexts/AuthStorageContext';
 import { ME } from '../../graphql/queries';
+
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   header: {
@@ -20,6 +23,9 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     marginTop: 20,
     marginBottom: -15
+  },
+  logout: {
+    marginHorizontal: 100
   }
 });
 
@@ -40,7 +46,12 @@ const ProfilePage = ({ setIsLoggedIn }) => {
       <Text fontSize='header' style={styles.header}>Your profile</Text>
       <Text fontSize='subheading' style={styles.welcomeText}>{`Welcome ${data?.me.name}`}</Text>
       <OrderList customer={data?.me.username}/>
-      <Button onPress={logOut} title='Log out' />
+      <Button 
+        onPress={logOut} 
+        text='Log out' 
+        color={theme.colors.error}
+        style={styles.logout}
+      />
     </View>
   );
 };

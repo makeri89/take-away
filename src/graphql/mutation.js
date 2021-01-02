@@ -42,3 +42,22 @@ export const CREATE_NEW_ORDER = gql`
   }
   ${USER_INFO}
 `;
+
+export const CREATE_NEW_USER = gql`
+  mutation createNewUser(
+    $name: String!,
+    $username: String!,
+    $email: String!,
+    $password: String!,
+  ) {
+    createNewUser(
+      name: $name,
+      username: $username,
+      email: $email,
+      password: $password
+    ) {
+      ...UserInfo
+    }
+  }
+  ${USER_INFO}
+`;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -18,9 +18,8 @@ const styles = StyleSheet.create({
   form: {
     backgroundColor: 'white',
     margin: 30,
+    padding: 10,
     borderRadius: 10,
-    // position: 'relative',
-    // top: 250,
     shadowColor: '#555555',
     shadowOpacity: 0.8,
     shadowOffset: {

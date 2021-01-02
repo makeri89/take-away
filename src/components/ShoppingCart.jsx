@@ -53,8 +53,26 @@ const ShoppingCart = ({ navigation, forcer, setForcer }) => {
   console.log('user', user.data);
 
   const clearCart  = async () => {
-    await shoppingCartStorage.clearProducts();
-    setForcer(Math.random());
+    Alert.alert(
+      'Clear cart?',
+      'Remove all items from your cart?',
+      [
+        {
+          text: 'Remove',
+          onPress: async () => {
+            await shoppingCartStorage.clearProducts();
+            setForcer(Math.random());
+          }
+        },
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel'
+        }
+      ],
+      { cancelable: false }
+    );
+    
   };
 
   const onSubmit = async () => {

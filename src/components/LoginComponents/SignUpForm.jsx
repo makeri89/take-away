@@ -1,11 +1,13 @@
 import React from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 
 import FormikTextInput from '../UIcomponents/FormikTextInput';
 import Button from '../UIcomponents/Button';
 import Text from '../UIcomponents/Text';
+import useSingUp from '../../hooks/useSignUp';
+import useLogin from '../../hooks/useLogin';
 
 const initialValues = {
   name: '',
@@ -30,7 +32,8 @@ const styles = StyleSheet.create({
     shadowRadius: 5
   },
   header: {
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingVertical: 10
   }
 });
 
@@ -65,18 +68,30 @@ const Form = ({ onSubmit }) => {
       <FormikTextInput name='name' placeholder='Your name' />
       <FormikTextInput name='email' placeholder='Email address' />
       <FormikTextInput name='username' placeholder='Username' />
-      <FormikTextInput name='password' placeholder='Password' />
-      <FormikTextInput name='passwordConfirm' placeholder='Password confirmation' />
+      <FormikTextInput name='password' placeholder='Password' secureTextEntry />
+      <FormikTextInput name='passwordConfirm' placeholder='Password confirmation' secureTextEntry />
       <Button text='Sign up' onPress={onSubmit} />
     </View>
   );
 };
 
-const SignUpForm = () => {
-  const onSubmit = (values) => {
-    const { name, email, username } = values;
+const SignUpForm = ({ navigation, setIsLoggedIn }) => {
+  const [signUp] = useSingUp();
+  const [login] = useLogin();
 
-    Alert.alert(`${name} signed up with ${email} and the username ${username}`);
+  const onSubmit = async (values) => {
+    const { name, email, username, password } = values;
+
+    try {
+      const { data } = await signUp({ name, username, email, password });
+      console.log(data);
+      const { loginData } = await login({ username, password });
+      console.log(loginData);
+      setIsLoggedIn(true);
+      navigation.navigate('home');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
